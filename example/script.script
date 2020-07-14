@@ -1,5 +1,6 @@
 local dc = require "dc.dc"
 
 function init(self)
-	
+	local result = dc.make_gradient(0, 0, 0, 255, 255, 255, 255, 255, 1)
+	pprint(result)
 end

@@ -57,7 +57,7 @@ dc.palette = {
 	cyan = vmath.vector4(0 / 255, 255 / 255, 255 / 255, 255 / 255),
 	orange = vmath.vector4(255 / 255, 127 / 255, 0 / 255, 255 / 255),
 	indigo = vmath.vector4(75 / 255, 0 / 255, 130 / 255, 255 / 255),
-	violet = vmath.vector4(150 / 255, 0 / 255, 255 / 255, 255 / 255)
+	violet = vmath.vector4(150 / 255, 0 / 255, 255 / 255, 255 / 255),
 	brown = vmath.vector4(120 / 255, 95 / 255, 75 / 255, 255 / 255)
 }
 
@@ -68,6 +68,18 @@ dc.palette = {
 function dc.make_color(r, g, b, a)
 	r, g, b, a = clamp_rgba(r, g, b, a)
 	return vmath.vector4(r, g, b, a)
+end
+
+function dc.make_gradient(r, g, b, a, rr, gg, bb, aa, count)
+	r, g, b, a = clamp_rgba(r, g, b, a)
+	rr, gg, bb, aa = clamp_rgba(rr, gg, bb, aa)
+	local spans = vmath.vector4((rr - r) / (count + 1), (gg - g) / (count + 1), (bb - b) / (count + 1), (aa - a) / (count + 1))
+	local result = { vmath.vector4(r, g, b, a) }
+	for i = 1, count do
+		table.insert(result, vmath.vector4(r + spans.x * i, g + spans.y * i, b + spans.z * i, a + spans.w * i))
+	end
+	table.insert(result, vmath.vector4(rr, gg, bb, aa))
+	return result
 end
 
 function dc.saturate(s, percent)
