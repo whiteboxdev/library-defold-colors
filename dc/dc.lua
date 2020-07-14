@@ -35,11 +35,11 @@ local dc = {}
 ----------------------------------------------------------------------
 
 local function clamp_rgba(r, g, b, a)
-	return r % 256 / 255, g % 256 / 255, b % 256 / 255, a % 256 / 255
+	return math.floor(r) % 256 / 255, math.floor(g) % 256 / 255, math.floor(b) % 256 / 255, math.floor(a) % 256 / 255
 end
 
 local function clamp_hsla(h, s, l, a)
-	return h % 360, s % 101 * 0.01, l % 101 * 0.01, a % 256 / 255
+	return math.floor(h) % 360, smath.floor(s) % 101 * 0.01, math.floor(l) % 101 * 0.01, math.floor(a) % 256 / 255
 end
 
 ----------------------------------------------------------------------
@@ -47,12 +47,51 @@ end
 ----------------------------------------------------------------------
 
 function dc.make_color(r, g, b, a)
-	r, g, b, a = clamp_rgba(r or 0, g or 0, b or 0, a or 1)
+	r, g, b, a = clamp_rgba(r, g, b, a)
 	return vmath.vector4(r, g, b, a)
 end
 
+function dc.saturate(s, percent)
+	local result = s + percent
+	return result <= 100 and result or 100
+end
+
+function dc.desaturate(s, percent)
+	local result = s - percent
+	if result >= 0 then
+		return result
+	end
+	return 0
+end
+
+function dc.lighten(l, percent)
+	local result = l + percent
+	return result <= 100 and result or 100
+end
+
+function dc.darken(l, percent)
+	local result = l - percent
+	if result >= 0 then
+		return result
+	end
+	return 0
+end
+
+function dc.materialize(a, percent)
+	local result = a + percent * 2.55
+	return result <= 255 and result or 255
+end
+
+function dc.fade(a, percent)
+	local result = a - percent * 2.55
+	if result >= 0 then
+		return result
+	end
+	return 0
+end
+
 function dc.rgba_to_hsla(r, g, b, a)
-	r, g, b, a = clamp_rgba(r or 0, g or 0, b or 0, a or 1)
+	r, g, b, a = clamp_rgba(r, g, b, a)
 	cmax = math.max(r, g, b)
 	cmin = math.min(r, g, b)
 	cdif = cmax - cmin
@@ -72,7 +111,7 @@ function dc.rgba_to_hsla(r, g, b, a)
 end
 
 function dc.hsla_to_rgba(h, s, l, a)
-	h, s, l, a = clamp_hsla(h or 0, s or 0, l or 0, a or 1)
+	h, s, l, a = clamp_hsla(h, s, l, a)
 	c = s * (1 - math.abs(2 * l - 1))
 	x = c * (1 - math.abs(h / 60 % 2 - 1))
 	m = l - c * 0.5
