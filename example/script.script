@@ -1,0 +1,5 @@
+local dc = require "dc.dc"
+
+function init(self)
+	
+end
