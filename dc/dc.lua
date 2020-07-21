@@ -89,18 +89,18 @@ function dc.remove_palette(palette)
 	end
 end
 
-function dc.choose_palette(palette)
-	if dc.check_palette(palette) then
-		dc.palette = dc.vault[palette]
-		dc.palette_name = palette
-	end
-end
-
 function dc.clear_palette(palette)
 	if dc.check_palette(palette) then
 		for key, _ in pairs(dc.vault[palette]) do
 			dc.vault[palette][key] = nil
 		end
+	end
+end
+
+function dc.choose_palette(palette)
+	if dc.check_palette(palette) then
+		dc.palette = dc.vault[palette]
+		dc.palette_name = palette
 	end
 end
 
@@ -135,14 +135,6 @@ function dc.remove_color(palette, color)
 			end
 		end
 	end
-end
-
-function dc.get_defsave_save()
-	
-end
-
-function dc.get_defsave_load()
-	
 end
 
 function dc.debug()
