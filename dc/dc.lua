@@ -2,7 +2,7 @@
 -- LICENSE
 ----------------------------------------------------------------------
 
--- Defold Colors 1.0.0 is the best way to work with colors in a Defold game engine project.
+-- Defold Colors 1.0.0 provides customizable palettes, data persistence, and utility features to a Defold game engine project.
 -- Copyright (C) 2020  Klayton Kowalski
 
 -- This program is free software: you can redistribute it and/or modify
@@ -28,26 +28,25 @@ local dc = {}
 -- PROPERTIES
 ----------------------------------------------------------------------
 
-dc.palette = {
-	white = vmath.vector4(255 / 255, 255 / 255, 255 / 255, 255 / 255),
-	black = vmath.vector4(0 / 255, 0 / 255, 0 / 255, 255 / 255),
-	red = vmath.vector4(255 / 255, 0 / 255, 0 / 255, 255 / 255),
-	green = vmath.vector4(0 / 255, 255 / 255, 0 / 255, 255 / 255),
-	blue = vmath.vector4(0 / 255, 0 / 255, 255 / 255, 255 / 255),
-	yellow = vmath.vector4(255 / 255, 255 / 255, 0 / 255, 255 / 255),
-	magenta = vmath.vector4(255 / 255, 0 / 255, 255 / 255, 255 / 255),
-	cyan = vmath.vector4(0 / 255, 255 / 255, 255 / 255, 255 / 255),
+dc.vault = {
+	main = {
+		white = vmath.vector4(255 / 255, 255 / 255, 255 / 255, 255 / 255),
+		black = vmath.vector4(0 / 255, 0 / 255, 0 / 255, 255 / 255),
+		red = vmath.vector4(255 / 255, 0 / 255, 0 / 255, 255 / 255),
+		green = vmath.vector4(0 / 255, 255 / 255, 0 / 255, 255 / 255),
+		blue = vmath.vector4(0 / 255, 0 / 255, 255 / 255, 255 / 255),
+		yellow = vmath.vector4(255 / 255, 255 / 255, 0 / 255, 255 / 255),
+		magenta = vmath.vector4(255 / 255, 0 / 255, 255 / 255, 255 / 255),
+		cyan = vmath.vector4(0 / 255, 255 / 255, 255 / 255, 255 / 255)
+	}
 }
 
-dc.debug = false
+dc.palette = dc.vault.main
+dc.palette_name = "main"
 
 ----------------------------------------------------------------------
 -- FUNCTIONS
 ----------------------------------------------------------------------
-
-function dc.set_debug(debug)
-	dc.debug = debug
-end
 
 function dc.set_red(color, red)
 	return vmath.vector4(red, 100, color.y, color.z, color.w)
@@ -69,35 +68,93 @@ function dc.set_component(color, red, green, blue, alpha)
 	return vmath.vector4(red or color.x, green or color.y, blue or color.z, alpha or color.w)
 end
 
-function dc.check_color(key)
-	for palette_key, _ in pairs(dc.palette) do
-		if palette_key == key then
+function dc.check_palette(palette)
+	for key, _ in pairs(dc.vault) do
+		if key == palette then
 			return true
 		end
 	end
 	return false
 end
 
-function dc.add_color(key, color)
-	if not dc.check_color(key) then
-		dc.palette[key] = color
-		if dc.debug then
-			print("DC: Color added to palette. [" .. key .. "]")
-		end
-	elseif dc.debug then
-		print("DC: Failed to add color to palette. It already exists. [" .. key .. "]")
+function dc.add_palette(palette)
+	if not dc.check_palette(palette) then
+		dc.vault[palette] = {}
 	end
 end
 
-function dc.remove_color(key)
-	if dc.check_color(key) then
-		dc.palette[key] = nil
-		if dc.debug then
-			print("DC: Color removed from palette. [" .. key .. "]")
-		end
-	elseif dc.debug then
-		print("DC: Failed to remove color from palette. It does not exist. [" .. key .. "]")
+function dc.remove_palette(palette)
+	if dc.check_palette(palette) then
+		dc.vault[palette] = nil
 	end
+end
+
+function dc.choose_palette(palette)
+	if dc.check_palette(palette) then
+		dc.palette = dc.vault[palette]
+		dc.palette_name = palette
+	end
+end
+
+function dc.clear_palette(palette)
+	if dc.check_palette(palette) then
+		for key, _ in pairs(dc.vault[palette]) do
+			dc.vault[palette][key] = nil
+		end
+	end
+end
+
+function dc.check_color(palette, color)
+	if dc.check_palette(palette) then
+		for key, value in pairs(dc.vault[palette]) do
+			if type(color) == "string" and key == color then
+				return true
+			elseif type(color) == "userdata" and value == color then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function dc.add_color(palette, name, color)
+	if dc.check_palette(palette) and not dc.check_color(palette, color) then
+		dc.vault[palette][name] = color
+	end
+end
+
+function dc.remove_color(palette, color)
+	if dc.check_color(palette, color) then
+		for key, value in pairs(dc.vault[palette]) do
+			if type(color) == "string" and key == color then
+				dc.vault[palette][key] = nil
+				return
+			elseif type(color) == "userdata" and value == color then
+				dc.vault[palette][key] = nil
+				return
+			end
+		end
+	end
+end
+
+function dc.get_defsave_save()
+	
+end
+
+function dc.get_defsave_load()
+	
+end
+
+function dc.debug()
+	print("DC: START DEBUG STATE")
+	for key, value in pairs(dc.vault) do
+		print("DC: ---- Palette [" .. key .. "]")
+		for key_2, value_2 in pairs(value) do
+			print("DC: -------- Color [" .. key_2 .. "] [" .. tostring(value_2) .. "]")
+		end
+	end
+	print("DC: ---- Current palette [" .. dc.palette_name .. "]")
+	print("DC: END DEBUG STATE")
 end
 
 return dc

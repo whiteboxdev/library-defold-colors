@@ -1,5 +1,58 @@
 local dc = require "dc.dc"
 
 function init(self)
-	dc.set_debug(true)
+	-- Print current DC state to the terminal.
+	print("First call to dc.debug()")
+	dc.debug()
+	print()
+
+	-- Remove default palette and color presets.
+	-- No palettes exist.
+	dc.remove_palette("main")
+
+	-- Add custom_1 and custom_2 palettes.
+	-- Both contain no colors.
+	dc.add_palette("custom_1")
+	dc.add_palette("custom_2")
+
+	-- Add colors "white", "green", and "yellow" to custom_1 palette.
+	dc.add_color("custom_1", "white", vmath.vector4(1, 1, 1, 1))
+	dc.add_color("custom_1", "green", vmath.vector4(0, 1, 0, 1))
+	dc.add_color("custom_1", "yellow", vmath.vector4(1, 1, 0, 1))
+
+	-- Add colors "black", "red", and "blue" to custom_2 palette.
+	dc.add_color("custom_2", "black", vmath.vector4(0, 0, 0, 1))
+	dc.add_color("custom_2", "red", vmath.vector4(1, 0, 0, 1))
+	dc.add_color("custom_2", "blue", vmath.vector4(0, 0, 1, 1))
+
+	-- Choose to use custom_1 palette.
+	-- We can now access its colors using: "dc.palette.COLOR_NAME".
+	dc.choose_palette("custom_1")
+
+	-- Print current DC state to the terminal.
+	print("Second call to dc.debug()")
+	dc.debug()
+	print()
+
+	-- Remove colors "green" and "yellow" from custom_1 palette
+	dc.remove_color(dc.palette_name, "green")
+	dc.remove_color(dc.palette_name, dc.palette.yellow)
+
+	-- Clear all colors from custom_2 palette.
+	dc.clear_palette("custom_2")
+
+	-- Print current DC state to terminal.
+	print("Third call to dc.debug()")
+	dc.debug()
+	print()
+
+	-- Remove both custom_1 and custom_2 palettes.
+	-- No palettes exist.
+	dc.remove_palette(dc.palette_name)
+	dc.remove_palette("custom_2")
+
+	-- Print current DC state to terminal.
+	print("Fourth call to dc.debug()")
+	dc.debug()
+	print()
 end
