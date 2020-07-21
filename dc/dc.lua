@@ -39,9 +39,15 @@ dc.palette = {
 	cyan = vmath.vector4(0 / 255, 255 / 255, 255 / 255, 255 / 255),
 }
 
+dc.debug = false
+
 ----------------------------------------------------------------------
 -- FUNCTIONS
 ----------------------------------------------------------------------
+
+function dc.set_debug(debug)
+	dc.debug = debug
+end
 
 function dc.set_red(color, red)
 	return vmath.vector4(red, 100, color.y, color.z, color.w)
@@ -61,6 +67,37 @@ end
 
 function dc.set_component(color, red, green, blue, alpha)
 	return vmath.vector4(red or color.x, green or color.y, blue or color.z, alpha or color.w)
+end
+
+function dc.check_color(key)
+	for palette_key, _ in pairs(dc.palette) do
+		if palette_key == key then
+			return true
+		end
+	end
+	return false
+end
+
+function dc.add_color(key, color)
+	if not dc.check_color(key) then
+		dc.palette[key] = color
+		if dc.debug then
+			print("DC: Color added to palette. [" .. key .. "]")
+		end
+	elseif dc.debug then
+		print("DC: Failed to add color to palette. It already exists. [" .. key .. "]")
+	end
+end
+
+function dc.remove_color(key)
+	if dc.check_color(key) then
+		dc.palette[key] = nil
+		if dc.debug then
+			print("DC: Color removed from palette. [" .. key .. "]")
+		end
+	elseif dc.debug then
+		print("DC: Failed to remove color from palette. It does not exist. [" .. key .. "]")
+	end
 end
 
 return dc

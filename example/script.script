@@ -1,5 +1,5 @@
 local dc = require "dc.dc"
 
 function init(self)
-	
+	dc.set_debug(true)
 end
