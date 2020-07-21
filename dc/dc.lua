@@ -2,7 +2,7 @@
 -- LICENSE
 ----------------------------------------------------------------------
 
--- Defold Colors 1.0.0 provides customizable palettes, data persistence, and utility features to a Defold game engine project.
+-- Defold Colors 1.0.0 provides customizable palettes and color utility features to a Defold game engine project.
 -- Copyright (C) 2020  Klayton Kowalski
 
 -- This program is free software: you can redistribute it and/or modify

@@ -1,5 +1,5 @@
 # Defold Colors
-Defold Colors (DC) 1.0.0 provides customizable palettes, data persistence, and utility features to a Defold game engine project.
+Defold Colors (DC) 1.0.0 provides customizable palettes and color utility features to a Defold game engine project.
 
 An [example project](https://github.com/gymratgames/defold-colors/tree/master/example) is available if you need additional help with configuration.
 
@@ -50,6 +50,23 @@ gui.set_color(gui.get_node("node"), dc.set_alpha(gui.get_color(gui.get_node("nod
 ```
 
 ## API: Properties
+
+### dc.vault
+
+Table containing all registered palettes and colors. This may be accessed if you are looking for an intuitive method of achieving data persistence with your custom palettes and colors. **Note**: Do not reference this property unless dealing with data persistence. As usual, do not write to this property.
+
+The vault is structured as follows:
+
+```
+dc.vault = {
+	<palette_name> = {
+		<color_name> = vmath.vector4( ... ),
+        ...
+	}
+}
+```
+
+When loading data back into DC, use `dc.add_palette()` and `dc.add_color()` instead of writing directly to this property.
 
 ### dc.palette
 
