@@ -3,7 +3,8 @@ Defold Colors (DC) 1.0.0 provides customizable palettes and color utility featur
 
 An [example project](https://github.com/gymratgames/defold-colors/tree/master/example) is available if you need additional help with configuration.
 
-Please click the "Star" button on GitHub if you find this asset to be useful!
+Please click the "Star" button on GitHub if you find this asset to be useful!  
+Consider supporting me on [Patreon](https://www.patreon.com/klaytonkowalski) if you like my work.
 
 ![alt text](https://github.com/gymratgames/defold-colors/blob/master/assets/thumbnail.png?raw=true)
 
