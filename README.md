@@ -1,17 +1,16 @@
 # Defold Colors
 Defold Colors (DC) 1.0.0 provides customizable palettes and color utility features to a Defold game engine project.
 
-An [example project](https://github.com/gymratgames/defold-colors/tree/master/example) is available if you need additional help with configuration.
+An [example project](https://github.com/kowalskigamedevelopment/defold-colors/tree/master/example) is available if you need additional help with configuration.
 
-Please click the "Star" button on GitHub if you find this asset to be useful!  
-If you wish to support me and the work I do, please consider becoming one of my [patrons](https://www.patreon.com/klaytonkowalski).
+Please click the "Star" button on GitHub if you find this asset to be useful!
 
-![alt text](https://github.com/gymratgames/defold-colors/blob/master/assets/thumbnail.png?raw=true)
+![alt text](https://github.com/kowalskigamedevelopment/defold-colors/blob/master/assets/thumbnail.png?raw=true)
 
 ## Installation
 To install DC into your project, add one of the following links to your `game.project` dependencies:
-  - https://github.com/gymratgames/defold-colors/archive/master.zip
-  - URL of a [specific release](https://github.com/gymratgames/defold-colors/releases)
+  - https://github.com/kowalskigamedevelopment/defold-colors/archive/master.zip
+  - URL of a [specific release](https://github.com/kowalskigamedevelopment/defold-colors/releases)
 
 ## Configuration
 Import the DC Lua module into your relevant scripts:

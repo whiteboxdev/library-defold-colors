@@ -12,7 +12,7 @@ height = 720
 input_method = HiddenInputField
 
 [project]
-title = Defold Colors - Example
+title = Defold Colors
 
 [library]
 include_dirs = dc
