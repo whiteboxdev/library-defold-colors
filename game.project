@@ -13,11 +13,17 @@ input_method = HiddenInputField
 
 [project]
 title = Defold Colors
+version = 1.0.1
+publisher = Klayton Kowalski
+developer = Klayton Kowalski
 
 [library]
-include_dirs = dc
+include_dirs = dcolors
 
 [graphics]
 default_texture_min_filter = nearest
 default_texture_mag_filter = nearest
+
+[input]
+gamepads = /builtins/input/default.gamepadsc
 

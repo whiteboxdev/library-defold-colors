@@ -30,9 +30,9 @@
 -- PROPERTIES
 ----------------------------------------------------------------------
 
-local dc = {}
+local dcolors = {}
 
-dc.vault = {
+dcolors.vault = {
 	main = {
 		white = vmath.vector4(255 / 255, 255 / 255, 255 / 255, 255 / 255),
 		black = vmath.vector4(0 / 255, 0 / 255, 0 / 255, 255 / 255),
@@ -45,35 +45,35 @@ dc.vault = {
 	}
 }
 
-dc.palette = dc.vault.main
-dc.palette_name = "main"
+dcolors.palette = dcolors.vault.main
+dcolors.palette_name = "main"
 
 ----------------------------------------------------------------------
 -- FUNCTIONS
 ----------------------------------------------------------------------
 
-function dc.set_red(color, red)
+function dcolors.set_red(color, red)
 	return vmath.vector4(red, 100, color.y, color.z, color.w)
 end
 
-function dc.set_green(color, green)
+function dcolors.set_green(color, green)
 	return vmath.vector4(color.x, green, color.z, color.w)
 end
 
-function dc.set_blue(color, blue)
+function dcolors.set_blue(color, blue)
 	return vmath.vector4(color.x, color.y, blue, color.w)
 end
 
-function dc.set_alpha(color, alpha)
+function dcolors.set_alpha(color, alpha)
 	return vmath.vector4(color.x, color.y, color.z, alpha)
 end
 
-function dc.set_component(color, red, green, blue, alpha)
+function dcolors.set_component(color, red, green, blue, alpha)
 	return vmath.vector4(red or color.x, green or color.y, blue or color.z, alpha or color.w)
 end
 
-function dc.check_palette(palette)
-	for key, _ in pairs(dc.vault) do
+function dcolors.check_palette(palette)
+	for key, _ in pairs(dcolors.vault) do
 		if key == palette then
 			return true
 		end
@@ -81,36 +81,36 @@ function dc.check_palette(palette)
 	return false
 end
 
-function dc.add_palette(palette)
-	if not dc.check_palette(palette) then
-		dc.vault[palette] = {}
+function dcolors.add_palette(palette)
+	if not dcolors.check_palette(palette) then
+		dcolors.vault[palette] = {}
 	end
 end
 
-function dc.remove_palette(palette)
-	if dc.check_palette(palette) then
-		dc.vault[palette] = nil
+function dcolors.remove_palette(palette)
+	if dcolors.check_palette(palette) then
+		dcolors.vault[palette] = nil
 	end
 end
 
-function dc.clear_palette(palette)
-	if dc.check_palette(palette) then
-		for key, _ in pairs(dc.vault[palette]) do
-			dc.vault[palette][key] = nil
+function dcolors.clear_palette(palette)
+	if dcolors.check_palette(palette) then
+		for key, _ in pairs(dcolors.vault[palette]) do
+			dcolors.vault[palette][key] = nil
 		end
 	end
 end
 
-function dc.choose_palette(palette)
-	if dc.check_palette(palette) then
-		dc.palette = dc.vault[palette]
-		dc.palette_name = palette
+function dcolors.choose_palette(palette)
+	if dcolors.check_palette(palette) then
+		dcolors.palette = dcolors.vault[palette]
+		dcolors.palette_name = palette
 	end
 end
 
-function dc.check_color(palette, color)
-	if dc.check_palette(palette) then
-		for key, value in pairs(dc.vault[palette]) do
+function dcolors.check_color(palette, color)
+	if dcolors.check_palette(palette) then
+		for key, value in pairs(dcolors.vault[palette]) do
 			if type(color) == "string" and key == color then
 				return true
 			elseif type(color) == "userdata" and value == color then
@@ -121,36 +121,36 @@ function dc.check_color(palette, color)
 	return false
 end
 
-function dc.add_color(palette, name, color)
-	if dc.check_palette(palette) and not dc.check_color(palette, color) then
-		dc.vault[palette][name] = color
+function dcolors.add_color(palette, name, color)
+	if dcolors.check_palette(palette) and not dcolors.check_color(palette, color) then
+		dcolors.vault[palette][name] = color
 	end
 end
 
-function dc.remove_color(palette, color)
-	if dc.check_color(palette, color) then
-		for key, value in pairs(dc.vault[palette]) do
+function dcolors.remove_color(palette, color)
+	if dcolors.check_color(palette, color) then
+		for key, value in pairs(dcolors.vault[palette]) do
 			if type(color) == "string" and key == color then
-				dc.vault[palette][key] = nil
+				dcolors.vault[palette][key] = nil
 				return
 			elseif type(color) == "userdata" and value == color then
-				dc.vault[palette][key] = nil
+				dcolors.vault[palette][key] = nil
 				return
 			end
 		end
 	end
 end
 
-function dc.debug()
-	print("DC: START DEBUG STATE")
-	for key, value in pairs(dc.vault) do
-		print("DC: ---- Palette [" .. key .. "]")
+function dcolors.debug()
+	print("dcolors: START DEBUG STATE")
+	for key, value in pairs(dcolors.vault) do
+		print("dcolors: ---- Palette [" .. key .. "]")
 		for key_2, value_2 in pairs(value) do
-			print("DC: -------- Color [" .. key_2 .. "] [" .. tostring(value_2) .. "]")
+			print("dcolors: -------- Color [" .. key_2 .. "] [" .. tostring(value_2) .. "]")
 		end
 	end
-	print("DC: ---- Current palette [" .. dc.palette_name .. "]")
-	print("DC: END DEBUG STATE")
+	print("dcolors: ---- Current palette [" .. dcolors.palette_name .. "]")
+	print("dcolors: END DEBUG STATE")
 end
 
-return dc
+return dcolors
