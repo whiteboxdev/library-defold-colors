@@ -34,14 +34,22 @@ local dcolors = {}
 
 dcolors.vault = {
 	main = {
-		white = vmath.vector4(255 / 255, 255 / 255, 255 / 255, 255 / 255),
-		black = vmath.vector4(0 / 255, 0 / 255, 0 / 255, 255 / 255),
-		red = vmath.vector4(255 / 255, 0 / 255, 0 / 255, 255 / 255),
-		green = vmath.vector4(0 / 255, 255 / 255, 0 / 255, 255 / 255),
-		blue = vmath.vector4(0 / 255, 0 / 255, 255 / 255, 255 / 255),
-		yellow = vmath.vector4(255 / 255, 255 / 255, 0 / 255, 255 / 255),
-		magenta = vmath.vector4(255 / 255, 0 / 255, 255 / 255, 255 / 255),
-		cyan = vmath.vector4(0 / 255, 255 / 255, 255 / 255, 255 / 255)
+		white = vmath.vector4(1, 1, 1, 1),
+		black = vmath.vector4(0, 0, 0, 1),
+		red = vmath.vector4(1, 0, 0, 1),
+		green = vmath.vector4(0, 1, 0, 1),
+		blue = vmath.vector4(0, 0, 1, 1),
+		yellow = vmath.vector4(1, 1, 0, 1),
+		magenta = vmath.vector4(1, 0, 1, 1),
+		cyan = vmath.vector4(0, 1, 1, 1),
+		transparent_white = vmath.vector4(1, 1, 1, 0),
+		transparent_black = vmath.vector4(0, 0, 0, 0),
+		transparent_red = vmath.vector4(1, 0, 0, 0),
+		transparent_green = vmath.vector4(0, 1, 0, 0),
+		transparent_blue = vmath.vector4(0, 0, 1, 0),
+		transparent_yellow = vmath.vector4(1, 1, 0, 0),
+		transparent_magenta = vmath.vector4(1, 0, 1, 0),
+		transparent_cyan = vmath.vector4(0, 1, 1, 0)
 	}
 }
 
