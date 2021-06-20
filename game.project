@@ -13,7 +13,7 @@ input_method = HiddenInputField
 
 [project]
 title = Defold Colors
-version = 1.0.2
+version = 1.0.3
 publisher = Klayton Kowalski
 developer = Klayton Kowalski
 
