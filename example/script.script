@@ -35,8 +35,8 @@ function init(self)
 	print()
 
 	-- Remove colors "green" and "yellow" from custom_1 palette
-	dcolors.remove_color(dcolors.palette_name, "green")
-	dcolors.remove_color(dcolors.palette_name, dcolors.palette.yellow)
+	dcolors.remove_color("custom_1", "green")
+	dcolors.remove_color("custom_1", dcolors.palette.yellow)
 
 	-- Clear all colors from custom_2 palette.
 	dcolors.clear_palette("custom_2")
@@ -48,7 +48,7 @@ function init(self)
 
 	-- Remove both custom_1 and custom_2 palettes.
 	-- No palettes exist.
-	dcolors.remove_palette(dcolors.palette_name)
+	dcolors.remove_palette("custom_1")
 	dcolors.remove_palette("custom_2")
 
 	-- Print current dcolors state to terminal.

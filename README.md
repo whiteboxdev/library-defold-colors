@@ -1,5 +1,5 @@
 # Defold Colors
-Defold Colors (dcolors) 1.0.3 provides customizable palettes and color utility features to a Defold game engine project.
+Defold Colors (dcolors) 1.0.4 provides customizable palettes and color utility features to a Defold game engine project.
 
 An [example project](https://github.com/klaytonkowalski/defold-colors/tree/master/example) is available if you need additional help with configuration.
 
@@ -41,9 +41,7 @@ main = {
 
 In this case, `main` is the name of the palette. Each color inside has a key of `name` and a value of `vector4`. This palette comes packaged with the dcolors library and is loaded by default.
 
-To access a color, use `dcolors.palette.COLOR_NAME`. You can also reference the `dcolors.palette_name` property to get a string representation of the loaded palette's name. For example, typing `dcolors.palette_name` will return `"main"`.
-
-To add or remove colors from a palette, use the [color-related functions](#dcolorscheck_colorpalette-color).
+To access a color, use `dcolors.palette.COLOR_NAME`. To add or remove colors from a palette, use the [color-related functions](#dcolorscheck_colorpalette-color).
 
 To add or remove palettes, use the [palette-related functions](#dcolorscheck_palettepalette). To switch between palettes, call `dcolors.choose_palette()`.
 
@@ -65,33 +63,31 @@ gui.set_color(gui.get_node("node"), dcolors.set_alpha(gui.get_color(gui.get_node
 
 ### dcolors.vault
 
-Table containing all registered palettes and colors. This may be accessed if you are looking to save and load color data. **Note**: It is recommended that you use the [API](#api-functions) to access or modify color data.
-
-The vault is structured as follows:
+Table containing all registered palettes and colors. This may be traversed if you are saving or loading color data. The vault is structured as follows:
 
 ```
-dcolors.vault = {
-	<palette_name> = {
+dcolors.vault =
+{
+	<palette_name> =
+	{
 		<color_name> = vmath.vector4( ... ),
-        ...
-	}
+        	...
+	},
+	...
 }
 ```
 
 ### dcolors.palette
 
-Allows access to the colors stored inside the loaded palette. A palette is structured as follows:
+Currently loaded palette. To access a color, use `dcolors.palette.COLOR_NAME`. A palette is structured as follows:
 
 ```
-<palette_name> = {
+<palette_name> =
+{
     <color_name> = vmath.vector4( ... ),
     ...
 }
 ```
-
-### dcolors.palette_name
-
-String representation of the loaded palette. This is useful for referencing the current palette when calling certain functions.
 
 ## API: Functions
 
@@ -168,12 +164,12 @@ Returns a `vector4`.
 
 ---
 
-### dcolors.check_palette(palette)
+### dcolors.check_palette(palette_name)
 
 Checks if a palette exists.
 
 #### Parameters
-1. `palette`: String representation of the palette's name.
+1. `palette_name`: Name of palette.
 
 #### Returns
 
@@ -181,49 +177,49 @@ Returns `true` or `false`.
 
 ---
 
-### dcolors.add_palette(palette)
+### dcolors.add_palette(palette_name)
 
-Adds an empty palette to the system. Does nothing if the palette already exists.
+Adds an empty palette to the vault. Does nothing if the palette already exists.
 
 #### Parameters
-1. `palette`: String representation of the palette's name.
+1. `palette_name`: Name of palette.
 
 ---
 
-### dcolors.remove_palette(palette)
+### dcolors.remove_palette(palette_name)
 
-Removes a palette to the system. Does nothing if the palette does not exist.
+Removes a palette from the vault. If the currently loaded palette is removed, then `dcolors.palette` becomes `nil`. Does nothing if the palette does not exist.
 
 #### Parameters
-1. `palette`: String representation of the palette's name.
+1. `palette_name`: Name of palette.
 
 ---
 
-### dcolors.clear_palette(palette)
+### dcolors.clear_palette(palette_name)
 
 Clears all colors from a palette. Does nothing if the palette does not exist.
 
 #### Parameters
-1. `palette`: String representation of the palette's name.
+1. `palette_name`: Name of palette.
 
 ---
 
-### dcolors.choose_palette(palette)
+### dcolors.choose_palette(palette_name)
 
 Points the `dcolors.palette` property to a palette. Does nothing if the palette does not exist.
 
 #### Parameters
-1. `palette`: String representation of the palette's name.
+1. `palette_name`: Name of palette.
 
 ---
 
-### dcolors.check_color(palette, color)
+### dcolors.check_color(palette_name, color)
 
 Checks if a color exists within a palette.
 
 #### Parameters
-1. `palette`: String representation of the palette's name.
-2. `color`: `vector4` **or** string representation of the color's name.
+1. `palette_name`: Name of palette.
+2. `color`: `vector4` **or** name of color.
 
 #### Returns
 
@@ -231,27 +227,27 @@ Returns `true` or `false`.
 
 ---
 
-### dcolors.add_color(palette, name, color)
+### dcolors.add_color(palette_name, color_name, color)
 
-Adds a color to a palette. Does nothing if the palette does not exist. If `name` already exists, its associated color value will be overwritten with `color`.
+Adds a color to a palette. Does nothing if the palette does not exist. If `color_name` already exists, its associated color value will be overwritten with `color`.
 
 #### Parameters
-1. `palette`: String representation of the palette's name.
-2. `name`: String representation of the color's name.
+1. `palette_name`: Name of palette.
+2. `color_name`: Name of color.
 3. `color`: `vector4` to add.
 
 ---
 
-### dcolors.remove_color(palette, color)
+### dcolors.remove_color(palette_name, color)
 
 Removes a color from a palette. Does nothing if the palette does not exist. Does nothing if the color does not exist.
 
 #### Parameters
-1. `palette`: String representation of the palette's name.
-2. `color`: `vector4` **or** string representation of the color's name.
+1. `palette`: Name of palette.
+2. `color`: `vector4` **or** name of color.
 
 ---
 
 ### dcolors.debug()
 
-Prints debug information to the terminal.
+Prints debug information to the console.
