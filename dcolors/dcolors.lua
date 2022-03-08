@@ -172,7 +172,7 @@ function dcolors.to_rgba_1(color, red, green, blue, alpha)
 end
 
 function dcolors.to_rgba_255(color, red, green, blue, alpha)
-	return vmath.vector4(math.floor((red or color.x) * 255), math.floor((green or color.g) * 255), math.floor((blue or color.b) * 255), math.floor((alpha or color.w) * 255))
+	return vmath.vector4(math.floor((red or color.x) * 255), math.floor((green or color.y) * 255), math.floor((blue or color.z) * 255), math.floor((alpha or color.w) * 255))
 end
 
 function dcolors.premultiply_alpha(color, red, green, blue, alpha)
