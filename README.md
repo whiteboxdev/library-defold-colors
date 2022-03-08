@@ -21,21 +21,14 @@ The `dcolors.palette` property allows you to access the colors stored inside the
 ```
 main = {
     white = vmath.vector4(1, 1, 1, 1),
-	black = vmath.vector4(0, 0, 0, 1),
-	red = vmath.vector4(1, 0, 0, 1),
-	green = vmath.vector4(0, 1, 0, 1),
-	blue = vmath.vector4(0, 0, 1, 1),
-	yellow = vmath.vector4(1, 1, 0, 1),
-	magenta = vmath.vector4(1, 0, 1, 1),
-	cyan = vmath.vector4(0, 1, 1, 1),
-	transparent_white = vmath.vector4(1, 1, 1, 0),
-	transparent_black = vmath.vector4(0, 0, 0, 0),
-	transparent_red = vmath.vector4(1, 0, 0, 0),
-	transparent_green = vmath.vector4(0, 1, 0, 0),
-	transparent_blue = vmath.vector4(0, 0, 1, 0),
-	transparent_yellow = vmath.vector4(1, 1, 0, 0),
-	transparent_magenta = vmath.vector4(1, 0, 1, 0),
-	transparent_cyan = vmath.vector4(0, 1, 1, 0)
+    black = vmath.vector4(0, 0, 0, 1),
+    red = vmath.vector4(1, 0, 0, 1),
+    green = vmath.vector4(0, 1, 0, 1),
+    blue = vmath.vector4(0, 0, 1, 1),
+    yellow = vmath.vector4(1, 1, 0, 1),
+    magenta = vmath.vector4(1, 0, 1, 1),
+    cyan = vmath.vector4(0, 1, 1, 1),
+    ...
 }
 ```
 

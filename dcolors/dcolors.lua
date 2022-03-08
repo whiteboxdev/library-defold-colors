@@ -73,7 +73,7 @@ dcolors.vault =
 dcolors.palette = dcolors.vault.main
 
 ----------------------------------------------------------------------
--- FUNCTIONS
+-- MODULE FUNCTIONS
 ----------------------------------------------------------------------
 
 function dcolors.set_red(color, red)
@@ -165,6 +165,18 @@ function dcolors.remove_color(palette_name, color)
 			end
 		end
 	end
+end
+
+function dcolors.to_rgba_1(red, green, blue, alpha)
+	return vmath.vector4(red / 255, green / 255, blue / 255, alpha / 255)
+end
+
+function dcolors.to_rgba_255(red, green, blue, alpha)
+	return vmath.vector4(math.floor(red * 255), math.floor(green * 255), math.floor(blue * 255), math.floor(alpha * 255))
+end
+
+function dcolors.premultiply_alpha(component, alpha)
+	return bit.rshift(component * alpha, 8)
 end
 
 function dcolors.debug()
