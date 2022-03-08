@@ -167,16 +167,16 @@ function dcolors.remove_color(palette_name, color)
 	end
 end
 
-function dcolors.to_rgba_1(red, green, blue, alpha)
-	return vmath.vector4(red / 255, green / 255, blue / 255, alpha / 255)
+function dcolors.to_rgba_1(color, red, green, blue, alpha)
+	return vmath.vector4((red or color.x) / 255, (green or color.y) / 255, (blue or color.z) / 255, (alpha or color.w) / 255)
 end
 
-function dcolors.to_rgba_255(red, green, blue, alpha)
-	return vmath.vector4(math.floor(red * 255), math.floor(green * 255), math.floor(blue * 255), math.floor(alpha * 255))
+function dcolors.to_rgba_255(color, red, green, blue, alpha)
+	return vmath.vector4(math.floor((red or color.x) * 255), math.floor((green or color.g) * 255), math.floor((blue or color.b) * 255), math.floor((alpha or color.w) * 255))
 end
 
-function dcolors.premultiply_alpha(component, alpha)
-	return bit.rshift(component * alpha, 8)
+function dcolors.premultiply_alpha(color, red, green, blue, alpha)
+	return vmath.vector4(bit.rshift((red or color.x) * alpha, 8), bit.rshift((green or color.y) * alpha, 8), bit.rshift((blue or color.z) * alpha, 8), alpha)
 end
 
 function dcolors.debug()
