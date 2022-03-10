@@ -1,5 +1,5 @@
 # Defold Colors
-Defold Colors (dcolors) 1.0.4 provides customizable palettes and color utility features to a Defold game engine project.
+Defold Colors (dcolors) 1.1.0 provides customizable palettes and color utility features to a Defold game engine project.
 
 An [example project](https://github.com/klaytonkowalski/defold-colors/tree/master/example) is available if you need additional help with configuration.
 
@@ -19,26 +19,21 @@ Import the dcolors Lua module into your relevant scripts:
 The `dcolors.palette` property allows you to access the colors stored inside the loaded palette. A palette is structured as follows:
 
 ```
-main = {
+example = {
     white = vmath.vector4(1, 1, 1, 1),
     black = vmath.vector4(0, 0, 0, 1),
-    red = vmath.vector4(1, 0, 0, 1),
-    green = vmath.vector4(0, 1, 0, 1),
-    blue = vmath.vector4(0, 0, 1, 1),
-    yellow = vmath.vector4(1, 1, 0, 1),
-    magenta = vmath.vector4(1, 0, 1, 1),
-    cyan = vmath.vector4(0, 1, 1, 1),
+    yellow = vmath.vector4(1, 0, 1, 1),
     ...
 }
 ```
 
-In this case, `main` is the name of the palette. Each color inside has a key of `name` and a value of `vector4`. This palette comes packaged with the dcolors library and is loaded by default.
+In this case, `example` is the name of the palette. Each color inside has a key of `name` and a value of `vector4`.
 
-To access a color, use `dcolors.palette.COLOR_NAME`. To add or remove colors from a palette, use the [color-related functions](#dcolorscheck_colorpalette-color).
+To access a color, use `dcolors.palette.COLOR_NAME` or `dcolors.vault.palette.COLOR_NAME`. To add or remove colors from a palette, use the [color-related functions](#dcolorscheck_colorpalette-color).
 
 To add or remove palettes, use the [palette-related functions](#dcolorscheck_palettepalette). To switch between palettes, call `dcolors.choose_palette()`.
 
-You may also use dcolors for its simple utility features, separate from its palette service. For example, `dcolors.set_alpha()` modifies the `vector4` passed in, then returns the new color. This is useful for consolidating code. For example, let us assume you want to get the color of a gui node, modify its alpha value to `100`, then set the color of that gui node to the modified color. Normally, you could perform this task like so:
+You may also use dcolors for its utility features, separate from its palette service. For example, `dcolors.set_alpha()` modifies the `vector4` passed in, then returns the new color. This is useful for consolidating code. For example, let us assume you want to get the color of a gui node, modify its alpha value to `100`, then set the color of that gui node to the modified color. Normally, you could perform this task like so:
 
 ```
 local color = gui.get_color(gui.get_node("node"))
@@ -140,23 +135,6 @@ Returns a `vector4`.
 
 ---
 
-### dcolors.set_component(color, red, green, blue, alpha)
-
-Sets one or many components of a color. Fill arguments as `nil` if they should remain unchanged.
-
-#### Parameters
-1. `color`: `vector4` to modify.
-2. `red`: Number denoting a new red value.
-3. `green`: Number denoting a new green value.
-4. `blue`: Number denoting a new blue value.
-5. `alpha`: Number denoting a new alpha value.
-
-#### Returns
-
-Returns a `vector4`.
-
----
-
 ### dcolors.check_palette(palette_name)
 
 Checks if a palette exists.
@@ -172,7 +150,7 @@ Returns `true` or `false`.
 
 ### dcolors.add_palette(palette_name)
 
-Adds an empty palette to the vault. Does nothing if the palette already exists.
+Adds an empty palette to the vault. If no palette is currently loaded, then `dcolors.palette` becomes `palette_name`. Does nothing if the palette already exists.
 
 #### Parameters
 1. `palette_name`: Name of palette.

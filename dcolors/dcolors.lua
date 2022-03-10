@@ -32,52 +32,15 @@
 
 local dcolors = {}
 
-dcolors.vault =
-{
-	main =
-	{
-		white = vmath.vector4(1, 1, 1, 1),
-		grey = vmath.vector4(0.5, 0.5, 0.5, 1),
-		black = vmath.vector4(0, 0, 0, 1),
-		red = vmath.vector4(1, 0, 0, 1),
-		green = vmath.vector4(0, 1, 0, 1),
-		blue = vmath.vector4(0, 0, 1, 1),
-		yellow = vmath.vector4(1, 1, 0, 1),
-		magenta = vmath.vector4(1, 0, 1, 1),
-		cyan = vmath.vector4(0, 1, 1, 1),
-		light_grey = vmath.vector4(0.75, 0.75, 0.75, 1),
-		light_red = vmath.vector4(1, 0.5, 0.5, 1),
-		light_green = vmath.vector4(0.5, 1, 0.5, 1),
-		light_blue = vmath.vector4(0.5, 0.5, 1, 1),
-		light_yellow = vmath.vector4(1, 1, 0.5, 1),
-		light_magenta = vmath.vector4(1, 0.5, 1, 1),
-		light_cyan = vmath.vector4(0.5, 1, 1, 1),
-		dark_grey = vmath.vector4(0.25, 0.25, 0.25, 1),
-		dark_red = vmath.vector4(0.5, 0, 0, 1),
-		dark_green = vmath.vector4(0, 0.5, 0, 1),
-		dark_blue = vmath.vector4(0, 0, 0.5, 1),
-		dark_yellow = vmath.vector4(0.5, 0.5, 0, 1),
-		dark_magenta = vmath.vector4(0.5, 0, 0.5, 1),
-		dark_cyan = vmath.vector4(0, 0.5, 0.5, 1),
-		transparent_white = vmath.vector4(1, 1, 1, 0),
-		transparent_black = vmath.vector4(0, 0, 0, 0),
-		transparent_red = vmath.vector4(1, 0, 0, 0),
-		transparent_green = vmath.vector4(0, 1, 0, 0),
-		transparent_blue = vmath.vector4(0, 0, 1, 0),
-		transparent_yellow = vmath.vector4(1, 1, 0, 0),
-		transparent_magenta = vmath.vector4(1, 0, 1, 0),
-		transparent_cyan = vmath.vector4(0, 1, 1, 0)
-	}
-}
-
-dcolors.palette = dcolors.vault.main
+dcolors.vault = {}
+dcolors.palette = nil
 
 ----------------------------------------------------------------------
 -- MODULE FUNCTIONS
 ----------------------------------------------------------------------
 
 function dcolors.set_red(color, red)
-	return vmath.vector4(red, 100, color.y, color.z, color.w)
+	return vmath.vector4(red, color.y, color.z, color.w)
 end
 
 function dcolors.set_green(color, green)
@@ -92,10 +55,6 @@ function dcolors.set_alpha(color, alpha)
 	return vmath.vector4(color.x, color.y, color.z, alpha)
 end
 
-function dcolors.set_component(color, red, green, blue, alpha)
-	return vmath.vector4(red or color.x, green or color.y, blue or color.z, alpha or color.w)
-end
-
 function dcolors.check_palette(palette_name)
 	for key, _ in pairs(dcolors.vault) do
 		if key == palette_name then
@@ -108,6 +67,9 @@ end
 function dcolors.add_palette(palette_name)
 	if not dcolors.check_palette(palette_name) then
 		dcolors.vault[palette_name] = {}
+		if not dcolors.palette then
+			dcolors.choose_palette(palette_name)
+		end
 	end
 end
 
@@ -167,28 +129,41 @@ function dcolors.remove_color(palette_name, color)
 	end
 end
 
-function dcolors.to_rgba_1(color, red, green, blue, alpha)
-	return vmath.vector4((red or color.x) / 255, (green or color.y) / 255, (blue or color.z) / 255, (alpha or color.w) / 255)
+function dcolors.premultiply_alpha(color)
+	return vmath.vector4(bit.rshift(color.x * color.w, 8), bit.rshift(color.y * color.w, 8), bit.rshift(color.z * color.w, 8), color.w)
 end
 
-function dcolors.to_rgba_255(color, red, green, blue, alpha)
-	return vmath.vector4(math.floor((red or color.x) * 255), math.floor((green or color.y) * 255), math.floor((blue or color.z) * 255), math.floor((alpha or color.w) * 255))
+function dcolors.to_scale_1(color)
+	return vmath.vector4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)
 end
 
-function dcolors.premultiply_alpha(color, red, green, blue, alpha)
-	return vmath.vector4(bit.rshift((red or color.x) * (alpha or color.w), 8), bit.rshift((green or color.y) * (alpha or color.w), 8), bit.rshift((blue or color.z) * (alpha or color.w), 8), (alpha or color.w))
+function dcolors.to_scale_255(color)
+	return vmath.vector4(math.floor(color.x * 255), math.floor(color.y * 255), math.floor(color.z * 255), math.floor(color.w * 255))
 end
 
-function dcolors.debug()
-	print("dcolors: START DEBUG STATE")
-	print("dcolors: ---- Is dcolors.palette valid? [" .. tostring(dcolors.palette and true or false) .. "]")
-	for key, value in pairs(dcolors.vault) do
-		print("dcolors: ---- Palette [" .. key .. "]")
-		for key_2, value_2 in pairs(value) do
-			print("dcolors: -------- Color [" .. key_2 .. "] [" .. tostring(value_2) .. "]")
-		end
-	end
-	print("dcolors: END DEBUG STATE")
+function dcolors.rgba_to_hsla(color)
+	
+end
+
+function dcolors.hsla_to_rgba(color)
+	
+end
+
+function dcolors.rgba_to_hex(color)
+	local to_scale_255 = dcolors.to_scale_255(color)
+	local r = string.format("%x", to_scale_255.x)
+	local g = string.format("%x", to_scale_255.y)
+	local b = string.format("%x", to_scale_255.z)
+	local a = string.format("%x", to_scale_255.w)
+	return (#r == 1 and "0" or "") .. r .. (#g == 1 and "0" or "") .. g .. (#b == 1 and "0" or "") .. b .. (#a == 1 and "0" or "") .. a
+end
+
+function dcolors.hex_to_rgba(color)
+	local r = tonumber("0x" .. string.sub(color, 1, 2))
+	local g = tonumber("0x" .. string.sub(color, 3, 4))
+	local b = tonumber("0x" .. string.sub(color, 5, 6))
+	local a = tonumber("0x" .. string.sub(color, 7, 8))
+	return dcolors.to_scale_1(vmath.vector4(r, g, b, a))
 end
 
 return dcolors

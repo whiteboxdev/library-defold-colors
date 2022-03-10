@@ -2,13 +2,8 @@ local dcolors = require "dcolors.dcolors"
 
 function init(self)
 	-- Print current dcolors state to the terminal.
-	print("First call to dcolors.debug()")
-	dcolors.debug()
-	print()
-
-	-- Remove default palette and color presets.
-	-- No palettes exist.
-	dcolors.remove_palette("main")
+	print("pprint(dcolors.vault, dcolors.palette)")
+	pprint(dcolors.vault, dcolors.palette)
 
 	-- Add custom_1 and custom_2 palettes.
 	-- Both contain no colors.
@@ -30,9 +25,8 @@ function init(self)
 	dcolors.choose_palette("custom_1")
 
 	-- Print current dcolors state to the terminal.
-	print("Second call to dcolors.debug()")
-	dcolors.debug()
-	print()
+	print("pprint(dcolors.vault, dcolors.palette)")
+	pprint(dcolors.vault, dcolors.palette)
 
 	-- Remove colors "green" and "yellow" from custom_1 palette
 	dcolors.remove_color("custom_1", "green")
@@ -41,17 +35,16 @@ function init(self)
 	-- Clear all colors from custom_2 palette.
 	dcolors.clear_palette("custom_2")
 
-	-- Print current dcolors state to terminal.
-	print("Third call to dcolors.debug()")
-	dcolors.debug()
-	print()
+	-- Print current dcolors state to the terminal.
+	print("pprint(dcolors.vault, dcolors.palette)")
+	pprint(dcolors.vault, dcolors.palette)
 
 	-- Remove both custom_1 and custom_2 palettes.
 	-- No palettes exist.
 	dcolors.remove_palette("custom_1")
 	dcolors.remove_palette("custom_2")
 
-	-- Print current dcolors state to terminal.
-	print("Fourth call to dcolors.debug()")
-	dcolors.debug()
+	-- Print current dcolors state to the terminal.
+	print("pprint(dcolors.vault, dcolors.palette)")
+	pprint(dcolors.vault, dcolors.palette)
 end
