@@ -36,6 +36,28 @@ dcolors.vault = {}
 dcolors.palette = nil
 
 ----------------------------------------------------------------------
+-- LOCAL FUNCTIONS
+----------------------------------------------------------------------
+
+local function parse_hue(p, q, t)
+	if t < 0 then
+		t = t + 1
+	elseif t > 1 then
+		t = t - 1
+	end
+	if t < 1 / 6 then
+		return p + (q - p) * 6 * t
+	end
+	if t < 0.5 then
+		return q
+	end
+	if t < 2 / 3 then
+		return p + (q - p) * (2 / 3 - t) * 6
+	end
+	return p
+end
+
+----------------------------------------------------------------------
 -- MODULE FUNCTIONS
 ----------------------------------------------------------------------
 
@@ -137,16 +159,57 @@ function dcolors.to_scale_1(color)
 	return vmath.vector4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)
 end
 
+function dcolors.to_scale_100(color)
+	return vmath.vector4(math.floor(color.x * 100), math.floor(color.y * 100), math.floor(color.z * 100), math.floor(color.w * 100))
+end
+
 function dcolors.to_scale_255(color)
 	return vmath.vector4(math.floor(color.x * 255), math.floor(color.y * 255), math.floor(color.z * 255), math.floor(color.w * 255))
 end
 
 function dcolors.rgba_to_hsla(color)
-	
+	local max = math.max(color.x, color.y, color.z)
+	local min = math.min(color.x, color.y, color.z)
+	local average = (max + min) * 0.5
+	local result = vmath.vector4(average, average, average, color.w)
+	if max == min then
+		result.x = 0
+		result.y = 0
+	else
+		local difference = max - min
+		result.y = result.z > 0.5 and difference / (2 - max - min) or difference / (max + min)
+		if max == color.x then
+			result.x = (color.y - color.z) / difference + (color.y < color.z and 6 or 0)
+		elseif max == color.y then
+			result.x = (color.z - color.x) / difference + 2
+		elseif max == color.z then
+			result.x = (color.x - color.y) / difference + 4
+		end
+		result.x = result.x / 6
+	end
+	result.x = math.floor(result.x * 360)
+	result.y = math.floor(result.y * 100)
+	result.z = math.floor(result.z * 100)
+	return result
 end
 
 function dcolors.hsla_to_rgba(color)
-	
+	color.x = color.x / 360
+	color.y = color.y * 0.01
+	color.z = color.z * 0.01
+	local result = vmath.vector4(0, 0, 0, color.w)
+	if color.y == 0 then
+		result.x = color.z
+		result.y = color.z
+		result.z = color.z
+	else
+		local q = color.z < 0.5 and color.z * (1 + color.y) or 1 + color.y - 1 * color.y
+		local p = 2 * color.z - q
+		result.x = parse_hue(p, q, color.x + 1 / 3)
+		result.y = parse_hue(p, q, color.x)
+		result.z = parse_hue(p, q, color.x - 1 / 3)
+	end
+	return result
 end
 
 function dcolors.rgba_to_hex(color)
