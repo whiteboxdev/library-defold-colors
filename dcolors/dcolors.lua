@@ -187,16 +187,10 @@ function dcolors.rgba_to_hsla(color)
 		end
 		result.x = result.x / 6
 	end
-	result.x = math.floor(result.x * 360)
-	result.y = math.floor(result.y * 100)
-	result.z = math.floor(result.z * 100)
 	return result
 end
 
 function dcolors.hsla_to_rgba(color)
-	color.x = color.x / 360
-	color.y = color.y * 0.01
-	color.z = color.z * 0.01
 	local result = vmath.vector4(0, 0, 0, color.w)
 	if color.y == 0 then
 		result.x = color.z

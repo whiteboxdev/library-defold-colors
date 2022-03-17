@@ -282,7 +282,7 @@ Converts an RGBA color to HSLA.
 
 #### Returns
 
-Returns a `vector4` where `.x = [0, 360], .y = [0, 100], .z = [0, 100]`.
+Returns a `vector4`.
 
 ---
 
@@ -291,7 +291,7 @@ Returns a `vector4` where `.x = [0, 360], .y = [0, 100], .z = [0, 100]`.
 Converts an HSLA color to RGBA.
 
 #### Parameters
-1. `color`: `vector4` to convert. **Note:** Expected component scale: `.x = [0, 360], .y = [0, 100], .z = [0, 100]`.
+1. `color`: `vector4` to convert.
 
 #### Returns
 
@@ -317,7 +317,7 @@ Returns a `string`.
 Converts a Hex color to RGBA.
 
 #### Parameters
-1. `color`: `string` to convert. **Note:** Do not include a prefix such as `0x` or `#`.
+1. `color`: `string` to convert. Do not include a prefix such as `0x` or `#`.
 
 #### Returns
 
