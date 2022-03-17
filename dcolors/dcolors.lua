@@ -197,7 +197,7 @@ function dcolors.hsla_to_rgba(color)
 		result.y = color.z
 		result.z = color.z
 	else
-		local q = color.z < 0.5 and color.z * (1 + color.y) or 1 + color.y - 1 * color.y
+		local q = color.z < 0.5 and color.z * (1 + color.y) or 1 + color.y - color.z * color.y
 		local p = 2 * color.z - q
 		result.x = parse_hue(p, q, color.x + 1 / 3)
 		result.y = parse_hue(p, q, color.x)
