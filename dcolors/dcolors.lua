@@ -159,12 +159,31 @@ function dcolors.to_scale_1(color)
 	return vmath.vector4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)
 end
 
+function dcolors.is_scale_100(color)
+	local value = tonumber(string.match(color, "^%d?%d?%d?$"))
+	return value and value <= 100 or false 
+end
+
 function dcolors.to_scale_100(color)
 	return vmath.vector4(math.floor(color.x * 100), math.floor(color.y * 100), math.floor(color.z * 100), math.floor(color.w * 100))
 end
 
+function dcolors.is_scale_255(color)
+	local value = tonumber(string.match(color, "^%d?%d?%d?$"))
+	return value and value <= 255 or false
+end
+
 function dcolors.to_scale_255(color)
 	return vmath.vector4(math.floor(color.x * 255), math.floor(color.y * 255), math.floor(color.z * 255), math.floor(color.w * 255))
+end
+
+function dcolors.is_scale_360(color)
+	local value = tonumber(string.match(color, "^%d?%d?%d?$"))
+	return value and value <= 360 or false
+end
+
+function dcolors.to_scale_360(color)
+	return vmath.vector4(math.floor(color.x * 360), math.floor(color.y * 360), math.floor(color.z * 360), math.floor(color.w * 360))
 end
 
 function dcolors.rgba_to_hsla(color)
