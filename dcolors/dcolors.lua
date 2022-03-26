@@ -170,6 +170,10 @@ function dcolors.is_scale_360(color)
 	return value and value <= 360 or false
 end
 
+function dcolors.is_scale_hex(color, lengths)
+	return (not string.match(color, "%X") and lengths[#color]) and true or false
+end
+
 function dcolors.rgba_to_hsla(color)
 	local max = math.max(color.x, color.y, color.z)
 	local min = math.min(color.x, color.y, color.z)
