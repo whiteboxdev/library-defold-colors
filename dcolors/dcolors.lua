@@ -155,17 +155,9 @@ function dcolors.premultiply_alpha(color)
 	return vmath.vector4(bit.rshift(color.x * color.w, 8), bit.rshift(color.y * color.w, 8), bit.rshift(color.z * color.w, 8), color.w)
 end
 
-function dcolors.to_scale_1(color)
-	return vmath.vector4(color.x / 255, color.y / 255, color.z / 255, color.w / 255)
-end
-
 function dcolors.is_scale_100(color)
 	local value = tonumber(string.match(color, "^%d?%d?%d?$"))
 	return value and value <= 100 or false 
-end
-
-function dcolors.to_scale_100(color)
-	return vmath.vector4(math.floor(color.x * 100), math.floor(color.y * 100), math.floor(color.z * 100), math.floor(color.w * 100))
 end
 
 function dcolors.is_scale_255(color)
@@ -173,17 +165,9 @@ function dcolors.is_scale_255(color)
 	return value and value <= 255 or false
 end
 
-function dcolors.to_scale_255(color)
-	return vmath.vector4(math.floor(color.x * 255), math.floor(color.y * 255), math.floor(color.z * 255), math.floor(color.w * 255))
-end
-
 function dcolors.is_scale_360(color)
 	local value = tonumber(string.match(color, "^%d?%d?%d?$"))
 	return value and value <= 360 or false
-end
-
-function dcolors.to_scale_360(color)
-	return vmath.vector4(math.floor(color.x * 360), math.floor(color.y * 360), math.floor(color.z * 360), math.floor(color.w * 360))
 end
 
 function dcolors.rgba_to_hsla(color)
@@ -226,20 +210,19 @@ function dcolors.hsla_to_rgba(color)
 end
 
 function dcolors.rgba_to_hex(color)
-	local to_scale_255 = dcolors.to_scale_255(color)
-	local r = string.format("%x", to_scale_255.x)
-	local g = string.format("%x", to_scale_255.y)
-	local b = string.format("%x", to_scale_255.z)
-	local a = string.format("%x", to_scale_255.w)
+	local r = string.format("%x", math.floor(color.x * 255))
+	local g = string.format("%x", math.floor(color.y * 255))
+	local b = string.format("%x", math.floor(color.z * 255))
+	local a = string.format("%x", math.floor(color.w * 255))
 	return (#r == 1 and "0" or "") .. r .. (#g == 1 and "0" or "") .. g .. (#b == 1 and "0" or "") .. b .. (#a == 1 and "0" or "") .. a
 end
 
 function dcolors.hex_to_rgba(color)
-	local r = tonumber("0x" .. string.sub(color, 1, 2))
-	local g = tonumber("0x" .. string.sub(color, 3, 4))
-	local b = tonumber("0x" .. string.sub(color, 5, 6))
-	local a = tonumber("0x" .. string.sub(color, 7, 8))
-	return dcolors.to_scale_1(vmath.vector4(r, g, b, a))
+	local r = tonumber("0x" .. string.sub(color, 1, 2)) / 255
+	local g = tonumber("0x" .. string.sub(color, 3, 4)) / 255
+	local b = tonumber("0x" .. string.sub(color, 5, 6)) / 255
+	local a = tonumber("0x" .. string.sub(color, 7, 8)) / 255
+	return vmath.vector4(r, g, b, a)
 end
 
 return dcolors
