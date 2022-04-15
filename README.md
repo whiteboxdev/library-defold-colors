@@ -1,5 +1,5 @@
 # Defold Colors
-Defold Colors 1.1.0 provides customizable palettes and color utility features to a Defold game engine project.
+Defold Colors provides customizable palettes and color utility features to a Defold game engine project.
 
 An [example project](https://github.com/klaytonkowalski/defold-colors/tree/master/example) is available if you need additional help with configuration.
 
