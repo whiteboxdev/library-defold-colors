@@ -155,21 +155,6 @@ function dcolors.premultiply_alpha(color)
 	return vmath.vector4(bit.rshift(color.x * color.w, 8), bit.rshift(color.y * color.w, 8), bit.rshift(color.z * color.w, 8), color.w)
 end
 
-function dcolors.is_scale_100(color)
-	local value = tonumber(string.match(color, "^%d?%d?%d?$"))
-	return value and value <= 100 or false 
-end
-
-function dcolors.is_scale_255(color)
-	local value = tonumber(string.match(color, "^%d?%d?%d?$"))
-	return value and value <= 255 or false
-end
-
-function dcolors.is_scale_360(color)
-	local value = tonumber(string.match(color, "^%d?%d?%d?$"))
-	return value and value <= 360 or false
-end
-
 function dcolors.is_scale_hex(color, lengths)
 	return (not string.match(color, "%X") and lengths[#color]) and true or false
 end

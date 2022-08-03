@@ -19,7 +19,8 @@ Import the dcolors Lua module into your relevant scripts:
 The `dcolors.palette` property allows you to access the colors stored inside the loaded palette. A palette is structured as follows:
 
 ```
-example = {
+example =
+{
     white = vmath.vector4(1, 1, 1, 1),
     black = vmath.vector4(0, 0, 0, 1),
     yellow = vmath.vector4(1, 0, 1, 1),
@@ -234,42 +235,26 @@ Returns a `vector4`.
 
 ---
 
-### dcolors.to_scale_1(color)
+### dcolors.is_scale_hex(color, lengths)
 
-Scales a color between \[0.0, 1.0\].
+Checks if a color is formatted in hexadecimal. Does not check for a preceding `#` symbol.
 
 #### Parameters
-1. `color`: `vector4` to modify.
+1. `color`: String of color value.
+2. `lengths`: Map of acceptable string lengths, structured as follows:
+
+```
+local lengths =
+{
+    [3] = true, -- #ABC
+    [6] = true, -- #AABBCC
+    [8] = true  -- #AABBCCFF (alpha)
+}
+```
 
 #### Returns
 
-Returns a `vector4`.
-
----
-
-### dcolors.to_scale_100(color)
-
-Scales a color between \[0, 100\].
-
-#### Parameters
-1. `color`: `vector4` to modify.
-
-#### Returns
-
-Returns a `vector4`.
-
----
-
-### dcolors.to_scale_255(color)
-
-Scales a color between \[0, 255\].
-
-#### Parameters
-1. `color`: `vector4` to modify.
-
-#### Returns
-
-Returns a `vector4`.
+Returns `true` or `false`.
 
 ---
 
