@@ -3,7 +3,7 @@ Defold Colors provides customizable palettes and color utility features to a Def
 
 An [example project](https://github.com/klaytonkowalski/library-defold-colors/tree/master/example) is available if you need additional help with configuration.
 
-Please click the "Star" button on GitHub if you find this asset to be useful!
+Please click the ☆ button on GitHub if this repository is useful or interesting. Thank you!
 
 ![alt text](https://github.com/klaytonkowalski/library-defold-colors/blob/master/assets/thumbnail.png?raw=true)
 
