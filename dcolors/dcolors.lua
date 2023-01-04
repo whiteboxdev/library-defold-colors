@@ -57,6 +57,10 @@ local function parse_hue(p, q, t)
 	return p
 end
 
+local function compare_colors(color_1, color_2)
+	return color_1.x == color_2.x and color_1.y == color_2.y and color_1.z == color_2.z and color_1.w == color_2.w
+end
+
 ----------------------------------------------------------------------
 -- MODULE FUNCTIONS
 ----------------------------------------------------------------------
@@ -123,7 +127,7 @@ function dcolors.check_color(palette_name, color)
 		for key, value in pairs(dcolors.vault[palette_name]) do
 			if type(color) == "string" and key == color then
 				return true
-			elseif type(color) == "userdata" and value == color then
+			elseif type(color) == "userdata" and compare_colors(value, color) then
 				return true
 			end
 		end
@@ -138,12 +142,12 @@ function dcolors.add_color(palette_name, color_name, color)
 end
 
 function dcolors.remove_color(palette_name, color)
-	if dcolors.check_color(palette_name, color_name) then
+	if dcolors.check_color(palette_name, color) then
 		for key, value in pairs(dcolors.vault[palette_name]) do
-			if type(color_name) == "string" and key == color_name then
+			if type(color) == "string" and key == color then
 				dcolors.vault[palette_name][key] = nil
 				return
-			elseif type(color_name) == "userdata" and value == color_name then
+			elseif type(color) == "userdata" and compare_colors(value, color) then
 				dcolors.vault[palette_name][key] = nil
 				return
 			end
