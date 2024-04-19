@@ -1,4 +1,5 @@
 # Defold Colors
+
 Defold Colors provides customizable palettes and color utility features to a Defold game engine project.
 
 Please click the ☆ button on GitHub if this repository is useful or interesting. Thank you!
@@ -8,9 +9,10 @@ Please click the ☆ button on GitHub if this repository is useful or interestin
 ## Installation
 
 Add the latest version to your project's dependencies:  
-https://github.com/klaytonkowalski/library-defold-colors/archive/main.zip
+https://github.com/klaytonkowalski/library-defold-colors/archive/master.zip
 
 ## Configuration
+
 Import the dcolors Lua module into your relevant scripts:
 `local dcolors = require "dcolors.dcolors"`
 
