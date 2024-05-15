@@ -22,12 +22,6 @@ embedded_components {
   "  z: 0.0\n"
   "  w: 0.0\n"
   "}\n"
-  "scale {\n"
-  "  x: 2.0\n"
-  "  y: 2.0\n"
-  "  z: 1.0\n"
-  "  w: 0.0\n"
-  "}\n"
   "color {\n"
   "  x: 1.0\n"
   "  y: 1.0\n"
@@ -52,7 +46,7 @@ embedded_components {
   "blend_mode: BLEND_MODE_ALPHA\n"
   "line_break: false\n"
   "text: \"See /example/script.script console output.\"\n"
-  "font: \"/builtins/fonts/system_font.font\"\n"
+  "font: \"/builtins/fonts/debug/always_on_top.font\"\n"
   "material: \"/builtins/fonts/label.material\"\n"
   ""
   position {
@@ -65,5 +59,10 @@ embedded_components {
     y: 0.0
     z: 0.0
     w: 1.0
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+    z: 1.0
   }
 }
