@@ -14,8 +14,8 @@ input_method = HiddenInputField
 [project]
 title = Defold Colors
 version = 1.0.0
-publisher = Klayton Kowalski
-developer = Klayton Kowalski
+publisher = White Box Dev
+developer = White Box Dev
 
 [library]
 include_dirs = dcolors
